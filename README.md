@@ -13,7 +13,8 @@ Currently supported PS2 games:
 * Need for Speed ProStreet
 * The Godfather
 
-Similar repositories/resources that implement checksum logic for EA games:
+Similar repositories/resources that implement checksum calculation for EA games:
+* https://github.com/rlnilsen/nfsu-checksum
 * https://github.com/TheLastOfLogic/NFS-Carbon-Save-Editor
 * https://github.com/x07x08/nfsmw-save-editor
 * https://github.com/r3sus/ds1savefix
