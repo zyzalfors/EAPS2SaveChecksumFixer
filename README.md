@@ -1,7 +1,7 @@
 # EA PS2 Save Checksum Fixer
 This command-line tool repairs checksums in save files for several Electronic Arts PlayStation 2 games.
 
-Some EA PS2 games use a common checksum routine—with some exceptions for Need for Speed Underground/Most Wanted—to guarantee the integrity of save data.
+Some EA PS2 games use a common checksum routine—with some exceptions for Need for Speed Underground/Most Wanted—to guarantee the integrity of save data. In general, similar checksum routines can be found in other EA games for other platforms.
 
 After modifying a save file with an editor or manually changing its contents, the checksum may no longer match the data, causing the game to reject the save or report it as corrupted. This tool recalculates and fixes the checksums so that modified saves can be recognized by the game again.
 
@@ -12,3 +12,10 @@ Currently supported PS2 games:
 * Need for Speed Carbon
 * Need for Speed ProStreet
 * The Godfather
+
+Similar repositories/resources that implement checksum logic for EA games:
+* https://github.com/TheLastOfLogic/NFS-Carbon-Save-Editor
+* https://github.com/x07x08/nfsmw-save-editor
+* https://github.com/r3sus/ds1savefix
+* https://www.nfs-cars.com/need-for-speed-pro-street/9/files/view/6945/ (source in zip folder)
+* https://github.com/VakhtinAndrey/Dead-Space-2-PC-Save-Editor
