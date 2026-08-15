@@ -4,8 +4,10 @@ class EAPS2Save:
     MAGIC = 0x4D433032
     HEADER_SIZE = 28
     POLY = 0x04C11DB7
-    GAMES = {"nfsu": "Need For Speed Underground", "nfsu2": "Need For Speed Underground 2", "nfsmw": "Need For Speed Most Wanted",
-             "nfsc": "Need For Speed Carbon", "nfsps": "Need For Speed ProStreet", "tg": "The Godfather"}
+    NFSMW_FROM = 52
+    GAMES = {"nfsu": "Need for Speed Underground", "nfsu2": "Need for Speed Underground 2", "nfsmw": "Need for Speed Most Wanted",
+             "nfsc": "Need for Speed Carbon",      "nfsps": "Need for Speed ProStreet",     "nfsuc": "Need for Speed Undercover",
+             "tg": "The Godfather"}
 
     def __init__(self, path, game):
         self.path = path
@@ -108,7 +110,7 @@ class EAPS2Save:
             md5 = self.data[len(self.data) - 16:].hex().upper()
 
             print(f"MD5: {md5}", end = "")
-            if md5 != hashlib.md5(self.data[52:len(self.data) - 16]).hexdigest().upper():
+            if md5 != hashlib.md5(self.data[self.NFSMW_FROM:len(self.data) - 16]).hexdigest().upper():
                 print(" (invalid)", end = "")
             print()
 
@@ -119,7 +121,7 @@ class EAPS2Save:
 
         else:
             if self.game == "nfsmw":
-                self.data[len(self.data) - 16:] = hashlib.md5(self.data[52:len(self.data) - 16]).digest()
+                self.data[len(self.data) - 16:] = hashlib.md5(self.data[self.NFSMW_FROM:len(self.data) - 16]).digest()
 
             size1 = int.from_bytes(self.data[8:12], "little")
             size2 = int.from_bytes(self.data[12:16], "little")
