@@ -1,7 +1,11 @@
 # EA PS2 Save Checksum Fixer
 This command-line tool repairs checksums in save files for several Electronic Arts PlayStation 2 games. Some EA PS2 games use common/similar checksum routines to guarantee the integrity of save data.
 
-Currently supported PS2 games:
+Supported PS2 games:
+* Battlefield 2: Modern Combat
+* Burnout Dominator
+* FIFA Street
+* FIFA Street 2
 * Need for Speed Underground
 * Need for Speed Underground 2
 * Need for Speed Most Wanted
