@@ -5,7 +5,7 @@ class EAPS2Save:
     HEADER_SIZE = 28
     POLY = 0x04C11DB7
     NFSMW_FROM = 52
-    GAMES = {"nfsu": "Need for Speed Underground", "nfsmw": "Need for Speed Most Wanted", "other": "Other supported"}
+    GAMES = ["nfsu", "nfsmw", "other"]
 
     def __init__(self, path, game):
         self.path = path
@@ -133,7 +133,7 @@ class EAPS2Save:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", "--path", action = "store", help = "set save's path")
-    parser.add_argument("-g", "--game", action = "store", help = "set save's game", choices = EAPS2Save.GAMES.keys())
+    parser.add_argument("-g", "--game", action = "store", help = "set save's game", choices = EAPS2Save.GAMES)
     parser.add_argument("-f", "--fix", action = "store_true", help = "fix save's checksums")
     args = parser.parse_args()
 
