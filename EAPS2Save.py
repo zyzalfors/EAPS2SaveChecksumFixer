@@ -5,9 +5,7 @@ class EAPS2Save:
     HEADER_SIZE = 28
     POLY = 0x04C11DB7
     NFSMW_FROM = 52
-    GAMES = {"nfsu": "Need for Speed Underground", "nfsu2": "Need for Speed Underground 2", "nfsmw": "Need for Speed Most Wanted",
-             "nfsc": "Need for Speed Carbon",      "nfsps": "Need for Speed ProStreet",     "nfsuc": "Need for Speed Undercover",
-             "tg": "The Godfather"}
+    GAMES = {"nfsu": "Need for Speed Underground", "nfsmw": "Need for Speed Most Wanted", "other": "Other supported"}
 
     def __init__(self, path, game):
         self.path = path
@@ -30,7 +28,7 @@ class EAPS2Save:
             self.crctab[i] = crc
 
 
-    def calcCrc(self, start, n):
+    def calcCrc1(self, start, n):
         if n < 4: return 0
 
         crc = (self.data[start] << 24) | (self.data[start + 1] << 16) | (self.data[start + 2] << 8) | self.data[start + 3]
@@ -43,7 +41,7 @@ class EAPS2Save:
         return (~crc) & 0xFFFFFFFF
 
 
-    def calcCrcNfsu(self):
+    def calcCrc2(self):
         n = len(self.data) - 4
         crc = 0xFFFFFFFF
         
@@ -58,13 +56,12 @@ class EAPS2Save:
 
     def check(self):
         print(f"Path: {self.path}")
-        print(f"Game: {self.GAMES[self.game]}")
 
         if self.game == "nfsu":
             crc = int.from_bytes(self.data[len(self.data) - 4:], "little")
 
             print(f"Checksum: {crc}", end = "")
-            if crc != self.calcCrcNfsu():
+            if crc != self.calcCrc2():
                 print(" (invalid)", end = "")
             print()
 
@@ -92,17 +89,17 @@ class EAPS2Save:
         print(f"Size 2: {size2}")
 
         print(f"Checksum 1: {crc1}", end = "")
-        if crc1 != self.calcCrc(self.HEADER_SIZE, size1):
+        if crc1 != self.calcCrc1(self.HEADER_SIZE, size1):
             print(" (invalid)", end = "")
         print()
 
         print(f"Checksum 2: {crc2}", end = "")
-        if crc2 != self.calcCrc(self.HEADER_SIZE + size1, size2):
+        if crc2 != self.calcCrc1(self.HEADER_SIZE + size1, size2):
             print(" (invalid)", end = "")
         print()
 
         print(f"Checksum 3: {crc3}", end = "")
-        if crc3 != self.calcCrc(0, self.HEADER_SIZE - 4):
+        if crc3 != self.calcCrc1(0, self.HEADER_SIZE - 4):
             print(" (invalid)", end = "")
         print()
 
@@ -117,7 +114,7 @@ class EAPS2Save:
 
     def fix(self):
         if self.game == "nfsu":
-            self.data[len(self.data) - 4:] = self.calcCrcNfsu().to_bytes(4, "little")
+            self.data[len(self.data) - 4:] = self.calcCrc2().to_bytes(4, "little")
 
         else:
             if self.game == "nfsmw":
@@ -125,9 +122,9 @@ class EAPS2Save:
 
             size1 = int.from_bytes(self.data[8:12], "little")
             size2 = int.from_bytes(self.data[12:16], "little")
-            self.data[16:20] = self.calcCrc(self.HEADER_SIZE, size1).to_bytes(4, "little")
-            self.data[20:24] = self.calcCrc(self.HEADER_SIZE + size1, size2).to_bytes(4, "little")
-            self.data[24:28] = self.calcCrc(0, self.HEADER_SIZE - 4).to_bytes(4, "little")
+            self.data[16:20] = self.calcCrc1(self.HEADER_SIZE, size1).to_bytes(4, "little")
+            self.data[20:24] = self.calcCrc1(self.HEADER_SIZE + size1, size2).to_bytes(4, "little")
+            self.data[24:28] = self.calcCrc1(0, self.HEADER_SIZE - 4).to_bytes(4, "little")
 
         with open(self.path, "wb") as f:
             f.write(self.data)
@@ -135,9 +132,9 @@ class EAPS2Save:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-path", action = "store", help = "set save's path")
-    parser.add_argument("-fix", action = "store_true", help = "fix save's checksums")
-    parser.add_argument("-game", action = "store", help = "set save's game", choices = EAPS2Save.GAMES.keys())
+    parser.add_argument("-p", "--path", action = "store", help = "set save's path")
+    parser.add_argument("-g", "--game", action = "store", help = "set save's game", choices = EAPS2Save.GAMES.keys())
+    parser.add_argument("-f", "--fix", action = "store_true", help = "fix save's checksums")
     args = parser.parse_args()
 
     if args.fix:
