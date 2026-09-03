@@ -1,6 +1,17 @@
 # EA PS2 Save Checksum Fixer
 This command-line tool repairs checksums in save files for several Electronic Arts PlayStation 2 games. Some EA PS2 games use common/similar checksum routines to guarantee the integrity of save data.
 
+```
+usage: EAPS2Save.py [-h] [-p PATH] [-g {nfsu,nfsmw,other}] [-f]
+
+options:
+  -h, --help            show this help message and exit
+  -p PATH, --path PATH  set save's path
+  -g {nfsu,nfsmw,other}, --game {nfsu,nfsmw,other}
+                        set save's game
+  -f, --fix             fix save's checksums
+```
+
 Supported PS2 games:
 * 007 From Russia With Love
 * Battlefield 2: Modern Combat
