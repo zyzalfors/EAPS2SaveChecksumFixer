@@ -5,11 +5,10 @@ This command-line tool repairs checksums in save files for several Electronic Ar
 usage: EAPS2Save.py [-h] [-p PATH] [-g {nfsu,nfsmw,other}] [-f]
 
 options:
-  -h, --help            show this help message and exit
-  -p PATH, --path PATH  set save's path
-  -g {nfsu,nfsmw,other}, --game {nfsu,nfsmw,other}
-                        set save's game
-  -f, --fix             fix save's checksums
+  -h, --help                                        show this help message and exit
+  -p PATH, --path PATH                              set save's path
+  -g {nfsu,nfsmw,other}, --game {nfsu,nfsmw,other}  set save's game
+  -f, --fix                                         fix save's checksums
 ```
 
 Supported PS2 games:
