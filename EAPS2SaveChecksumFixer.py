@@ -1,6 +1,6 @@
 import argparse, hashlib
 
-class EAPS2Save:
+class EAPS2SaveChecksumFixer:
     MAGIC = 0x4D433032
     HEADER_SIZE = 28
     POLY = 0x04C11DB7
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.fix:
-        EAPS2Save(args.path, args.game).fix()
+        EAPS2SaveChecksumFixer(args.path, args.game).fix()
 
     else:
-        EAPS2Save(args.path, args.game).check()
+        EAPS2SaveChecksumFixer(args.path, args.game).check()
