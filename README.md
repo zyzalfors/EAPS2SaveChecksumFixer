@@ -2,7 +2,7 @@
 This command-line tool repairs checksums in save files for several Electronic Arts PlayStation 2 games. Some EA PS2 games use common/similar checksum routines to guarantee the integrity of save data.
 
 ```
-usage: EAPS2Save.py [-h] [-p PATH] [-g {nfsu,nfsmw,other}] [-f]
+usage: EAPS2SaveChecksumFixer.py [-h] [-p PATH] [-g {nfsu,nfsmw,other}] [-f]
 
 options:
   -h, --help                                        show this help message and exit
