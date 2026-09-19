@@ -133,8 +133,8 @@ class EAPS2SaveChecksumFixer:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--path", action = "store", help = "set save's path")
-    parser.add_argument("-g", "--game", action = "store", help = "set save's game", choices = EAPS2SaveChecksumFixer.GAMES)
+    parser.add_argument("-p", "--path", required = True, action = "store", help = "set save's path")
+    parser.add_argument("-g", "--game", required = True, action = "store", help = "set save's game", choices = EAPS2SaveChecksumFixer.GAMES)
     parser.add_argument("-f", "--fix", action = "store_true", help = "fix save's checksums")
     args = parser.parse_args()
 
