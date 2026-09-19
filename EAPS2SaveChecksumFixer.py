@@ -7,6 +7,7 @@ class EAPS2SaveChecksumFixer:
     NFSMW_FROM = 52
     GAMES = ["nfsu", "nfsmw", "other"]
 
+
     def __init__(self, path, game):
         self.path = path
         self.game = game
